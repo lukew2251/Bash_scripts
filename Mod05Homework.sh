@@ -33,7 +33,7 @@ do
 			echo -e "You have entered a wrong coin value. Please try again."
 		fi
 	elif [[ $results -lt 0 ]];then
-		echo -e "You have been refunded $results cents.\n"
+		echo -e "You have been refunded $(($results*-1)) cents.\n"
 		echo -e "Your $user_choice is being dispensed. Thank you!\n"
 		break
 	else [[ $results -eq 0 ]]
