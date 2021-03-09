@@ -1,3 +1,5 @@
+#Luke Willis
+#Mod06Homework
 #! /bin/sh
 
 #declare and fill the four suits for the deck
