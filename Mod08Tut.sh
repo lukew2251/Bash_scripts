@@ -74,7 +74,7 @@ done < $input
 clear
 for i in ${city_array[*]}
 do
-	temp_array=($(echo $i | tr "\" " " | cut -d " " -f 1-))
+	temp_array=($(echo $i | tr "|" " " | cut -d " " -f 1-))
 	echo "${temp_array[0]}: ${temp[*]:1}" | tr "_" " "
 done
 
@@ -82,16 +82,5 @@ done
 cd ~/mod08t
 tar -cf emp_data.tgz -z employee.csv
 #return home
-cd~
+cd ~
 
-
-#I am providing you a short version of the employee_string for script building.  
-#Be sure to delete this string and uncomment the real string for your final 
-#testing and script submission.  If you hand in your script with the truncated 
-#string active you will be docked points!
-
-#Be aware that commenting/uncommenting these long strings can cause BASH to push 
-#the line down.  This results in errors while running the script.  If this 
-#happens, be sure to backspace the line back together.  Your best course of action 
-#is to not touch either string, except to delete the short version then uncomment 
-#the real string when ready.
