@@ -6,7 +6,7 @@
 major_descriptors="BAD-TRAFFIC,DNS SPOOF,ET CURRENT_EVENTS,ET DNS,ET INFO,ET MALWARE,ET POLICY,ET TROJAN,ET WEB_CLIENT,ICMP,INFO,SCAN,WEB-IIS"
 
 #parse data function
-parse_funct (){
+parse_func (){
 	echo -e "Please be patient. Parsing data..."
 	echo "Date,Time,Priority,Classification,Description,Packet Type,Source IP,Source Port,Destination
 IP,Destination Port" > ~/bash_scripts/alert_full_short_cleaned.csv
@@ -69,11 +69,11 @@ maj_desc (){
 		declare -a maj_desc_array=()
 		declare -a matches_array=()
 		declare -a major_descriptors=('BAD-TRAFFIC' 'DNS_SPOOF' 'ET_CURRENT_EVENTS' 'ET_DNS' 'ET_INFO'
-'ET_MALWARE' 'ET_POLICY' 'ET_TROJAN' 'ET_WEB_CLIENT' 'ICMP' SCAN' 'WEB-ITS')
+'ET_MALWARE' 'ET_POLICY' 'ET_TROJAN' 'ET_WEB_CLIENT' 'ICMP' 'SCAN' 'WEB-ITS')
 		echo -e "
 		Enter one or more starting charachters for your major descriptor, or 
 		Enter nothing to see all major descriptors, or
-		Enter 'exit' to return to the main menu: "
+		Enter exit to return to the main menu: "
 		read -p "Please enter your selection: " choice
 		choice=$(echo $choice | tr [:lower:] [:upper:])
 		
@@ -92,9 +92,11 @@ maj_desc (){
 		if [[ ${#maj_desc_array[*]} -eq 0 ]];then
 			clear
 			echo -e "No major descriptor was found with those starting characters"
+		
 		elif [[ ${#maj_desc_array[*]} -eq 1 ]];then
 			option=$(echo ${maj_desc_array[0]} | tr "_" " ")
 			echo -e "Your selection is: " $option
+			
 			input=~/bash_scripts/alert_full_short_cleaned.csv
 			while IFS= read -r line
 			do 
@@ -132,8 +134,8 @@ clean_up(){
 	name="Willis,Luke"
 	name=$(echo $name | tr "," "_")
 	name=$name".tgz"
-	filename=~/bash_scripts/$name
-	if [[ -f $filename ]];then
+	file_name=~/bash_scripts/$name
+	if [[ -f $file_name ]];then
 		rm $name
 	fi
 	cd ~/bash_scripts
@@ -141,11 +143,6 @@ clean_up(){
 	rm alert_full_short.pcap
 	rm alert_full_short_cleaned.csv
 }
-#clean up string
-major_descriptors=$(echo major_descriptors | tr "," " ")
-major_descriptors=$(echo major_descriptors | tr "-" "_")
-
-desc_array=($(echo $major_descriptors | cut -d " " -f 1-))
 
 #name strings
 MY_NAME="Luke Willis"
@@ -153,7 +150,7 @@ first_name=$(echo $MY_NAME | cut -d " " -f 1)
 last_name=$(echo $MY_NAME | cut -d " " -f 2)
 
 #data file check
-file_check=~/bash_scripts/alerts_full_short.pcap.tgz
+file_check=~/bash_scripts/alert_full_short.pcap.tgz
 if ! [[ -f $file_check ]];then
 	echo "Please put alert_full_short.pcap.tgz in the home directory"
 	exit
@@ -177,9 +174,9 @@ do
 	read -p "Options#: " pick
 	
 	if [[ $pick == 1 ]];then
-		pars_func
+		parse_func
 	elif [[ $pick == 2 ]];then
-		
+		maj_desc
 	elif [[ $pick == 3 ]];then
 		class_func
 	elif [[ $pick == 4 ]];then
